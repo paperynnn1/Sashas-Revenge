@@ -1,0 +1,13 @@
+local url = "https://raw.githubusercontent.com/paperynnn1/Sashas-Revenge/main/Sashagameid2"
+
+---[] = "";
+local games = {
+    [2788229376] = "DaHood";
+}
+
+for i,v in next, games do
+    games[i] = table.concat(v:split(' '), '_')
+end
+
+local name = games[game.PlaceId] or games[game.GameId]
+return loadstring(game:HttpGet(url.. "/"..(name or "Universal")..".lua"))()
