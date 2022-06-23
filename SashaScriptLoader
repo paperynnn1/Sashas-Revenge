@@ -1,0 +1,103 @@
+
+
+
+local repo = 'https://raw.githubusercontent.com/wally-rblx/LinoriaLib/main/'
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+
+local Window = Library:CreateWindow({
+    Title = 'NoAutoTune.lua',
+    Center = true, 
+    AutoShow = true,
+})
+Library:Notify("Your Whitelisted To NoAutoTune.lua")
+Library:Notify("Welcome To NoAutoTune.lua")
+local Tabs = {
+    MainTab = Window:AddTab('Main'), 
+    ['UI Settings'] = Window:AddTab('Settings'),
+}
+---silent aim---
+local SilAim = Tabs.MainTab:AddLeftGroupbox("Silent Aim")
+SilAim:AddToggle("ESA", {
+    Text = "Enable Silent Aim",
+    Default = false,
+    Tooltip = "Toggles The Silent Aim"
+});
+SilAim:AddInput('CSAP', {
+    Default = '0.163',
+    Numeric = true,
+    Finished = true,
+    Text = 'Prediction',
+    Tooltip = 'Change Silent Aim Prediction',
+    Placeholder = 'Enter New Prediction Here'
+})
+SilAim:AddToggle("PBSAP", {
+    Text = "Ping Based Prediction",
+    Default = false,
+    Tooltip = "Makes The Prediction Match With Your Ping"
+});
+SilAim:AddToggle("ESAF", {
+    Text = "Draw Silent Aim FOV",
+    Default = false,
+    Tooltip = "Toggles The Silent Aim Circle FOV"
+});
+SilAim:AddSlider('CSAFS', {
+    Text = 'Change FOV Size',
+    Default = 0,
+    Min = 0,
+    Max = 100,
+    Rounding = 5,
+    Compact = false
+});
+SilAim:AddSlider('CSAFS', {
+    Text = 'Change FOV Sides',
+    Default = 0,
+    Min = 0,
+    Max = 15,
+    Rounding = 5,
+    Compact = false,
+});
+SilAim:AddToggle("ESARF", {
+    Text = "Draw Rainbow Silent Aim FOV",
+    Default = false,
+    Tooltip = "Makes Your FOV Rainbow"
+});
+SilAim:AddSlider('CSAHC', {
+    Text = 'Change HitChance',
+    Default = 0,
+    Min = 0,
+    Max = 110,
+    Rounding = 5,
+    Compact = false
+});
+SilAim:AddDropdown('CSAHP', {
+    Values = { 'Head', 'UpperTorso', 'HumanoidRootPart','LowerTorso','RightFoot','LeftFoot' },
+    Default = 1,
+    Multi = true,
+    Text = 'Change HitParts',
+    Tooltip = 'Change Silent Aim Hit Parts'
+})
+SilAim:AddLabel('Change Silent Aim FOV Colour'):AddColorPicker('ColorPicker', {
+    Default = Color3.new(0, 1, 0),
+    Title = 'FOV Colour'
+});
+---target aim---
+local TarAim = Tabs.MainTab:AddRightGroupbox("Target Aim")
+TarAim:AddToggle("ETA", {
+    Text = "Enable Target Aim",
+    Default = false,
+    Tooltip = "Toggle Target Lock DUHHH rEAD!"
+});
+
+local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('UI')
+MenuGroup:AddButton('Remove GUI', function() Library:Unload() end)
+MenuGroup:AddLabel('Keybind'):AddKeyPicker('MenuKeybind', { Default = 'RightShift', NoUI = true, Text = 'Menu keybind' }) 
+SaveManager:SetLibrary(Library)
+SaveManager:IgnoreThemeSettings() 
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' }) 
+SaveManager:SetFolder('NOAUTOTUNE SETS')
+SaveManager:BuildConfigSection(Tabs['UI Settings'])
+ThemeManager:SetLibrary(Library)
+ThemeManager:SetFolder('NOAUTOTUNE THEMES')
+ThemeManager:ApplyToTab(Tabs['UI Settings'])
